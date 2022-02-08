@@ -421,20 +421,20 @@ self-certifying the identifier must be derived from the initial verkey associate
 <h5 id="example-extended-diddoc-item"><a class="toc-anchor" href="#example-extended-diddoc-item" >§</a> Example Extended DIDDoc Item</h5>
 <p>An example of a <a class="term-reference" href="#term:nym">NYM</a>'s extended DIDDoc handling is provided below. In the example below, the <code>diddocContent</code> item adds a DIDcomm Messaging service endpoint to the resolved DIDDoc. Note that in the example, an <code>@context</code> item is included in the <code>diddocContent</code>, which causes the result DIDDoc to be a JSON-LD document, rather than plain JSON.</p>
 <div id="extended-diddoc-item-example" class="notice example"><a class="notice-link" href="#extended-diddoc-item-example">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token property">"diddocContent"</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"@context"</span> <span class="token operator">:</span> <span class="token punctuation">[</span> 
-        <span class="token string">"https://www.w3.org/ns/did/v1"</span><span class="token punctuation">,</span>
-        <span class="token string">"https://identity.foundation/didcomm-messaging/service-endpoint/v1"</span>
-    <span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-        <span class="token punctuation">{</span>
-          <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:indy:sovrin:123456#didcomm"</span><span class="token punctuation">,</span>
-          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"didcomm-messaging"</span><span class="token punctuation">,</span>
-          <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token string">"https://example.com"</span><span class="token punctuation">,</span>
-          <span class="token property">"recipientKeys"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">"#verkey"</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">"routingKeys"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">]</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">]</span>
-  <span class="token punctuation">}</span>
+  <span class="token property">"@context"</span> <span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string">"https://www.w3.org/ns/did/v1"</span><span class="token punctuation">,</span>
+      <span class="token string">"https://identity.foundation/didcomm-messaging/service-endpoint/v1"</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:indy:sovrin:123456#didcomm"</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"didcomm-messaging"</span><span class="token punctuation">,</span>
+      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token string">"https://example.com"</span><span class="token punctuation">,</span>
+      <span class="token property">"recipientKeys"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">"#verkey"</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"routingKeys"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
 </code></pre>
 </div>
 <p>Applying the DIDDoc assembly rules to the example above produces the following assembled, valid JSON-LD DIDDoc:</p>
@@ -454,7 +454,7 @@ self-certifying the identifier must be derived from the initial verkey associate
   <span class="token property">"authentication"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token string">"did:indy:sovrin:123456#verkey"</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
       <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:indy:sovrin:123456#didcomm"</span><span class="token punctuation">,</span>
       <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"didcomm-messaging"</span><span class="token punctuation">,</span>
@@ -474,17 +474,17 @@ self-certifying the identifier must be derived from the initial verkey associate
 <p>If a client retrieves a <a class="term-reference" href="#term:nym">NYM</a> that has a <code>diddocContent</code> data element, the client should assume that the DID Controller has made the <a class="term-reference" href="#term:attrib">ATTRIB</a> (if any) obsolete and the client SHOULD NOT retrieve the <a class="term-reference" href="#term:attrib">ATTRIB</a> associated with the DID.</p>
 <p>If clients want to continue to retrieve and use the <code>endpoint</code> <a class="term-reference" href="#term:attrib">ATTRIB</a> transaction associated with a <a class="term-reference" href="#term:nym">NYM</a>, we recommend that the endpoint value (along with <code>namespace</code> and <code>dest</code>) be used as if the following was the <code>diddocContent</code> item in the <a class="term-reference" href="#term:nym">NYM</a>.</p>
 <pre class="language-json"><code class="language-json"><span class="token property">"diddocContent"</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"@context"</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">"https://identity.foundation/didcomm-messaging/service-endpoint/v1"</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-        <span class="token punctuation">{</span>
-          <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:indy:&lt;namespace>:&lt;dest>#didcomm"</span><span class="token punctuation">,</span>
-          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"didcomm-messaging"</span><span class="token punctuation">,</span>
-          <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token string">"&lt;ENDPOINT>"</span><span class="token punctuation">,</span>
-          <span class="token property">"recipientKeys"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">"#verkey"</span> <span class="token punctuation">]</span>
-          <span class="token property">"routingKeys"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">]</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">]</span>
-  <span class="token punctuation">}</span>
+  <span class="token property">"@context"</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">"https://identity.foundation/didcomm-messaging/service-endpoint/v1"</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:indy:&lt;namespace>:&lt;dest>#didcomm"</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"didcomm-messaging"</span><span class="token punctuation">,</span>
+      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token string">"&lt;ENDPOINT>"</span><span class="token punctuation">,</span>
+      <span class="token property">"recipientKeys"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">"#verkey"</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"routingKeys"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>The DIDDoc produced by the <a class="term-reference" href="#term:nym">NYM</a> and “endpoint” <a class="term-reference" href="#term:attrib">ATTRIB</a> would be created using the DIDDoc Assembly Rules and using the <code>diddocContent</code> from the <a class="term-reference" href="#term:attrib">ATTRIB</a> instead of the <a class="term-reference" href="#term:nym">NYM</a> item.</p>
 <h3 id="update"><a class="toc-anchor" href="#update" >§</a> Update</h3>
@@ -535,7 +535,7 @@ self-certifying the identifier must be derived from the initial verkey associate
 <p>If the parameter <code>versionId</code> is used, the value must be an Indy ledger <code>seqno</code> for the requested <a class="term-reference" href="#term:nym">NYM</a> on the queried Indy ledger. Instead of using the <code>GET_NYM</code> call, the Indy <code>GET_TXN</code> call is used, passing in the <code>seqno</code>. The result is checked that it is the <a class="term-reference" href="#term:nym">NYM</a> matching the DID namespace identifier. If so the call is considered to have failed. Either way, the process continues at Step 4.</p>
 <p>If the parameter <code>versionTime</code> is used, the <code>GET_NYM</code> transaction is called with the <code>versionTime</code> timestamp as an additional parameter. The Indy ledger code tries to find the instance of the requested <a class="term-reference" href="#term:nym">NYM</a> that was active at that time (using ledger transaction timestamps) and returns it (if found) or the call fails. Either way, the process continues at Step 4.</p>
 <h3 id="deactivate"><a class="toc-anchor" href="#deactivate" >§</a> Deactivate</h3>
-<p>Deactivtion of a <code>did:indy</code> DID is done by setting the <a class="term-reference" href="#term:nym">NYM</a> verkey to null. Once done, the DIDDoc is not found (per
+<p>Deactivation of a <code>did:indy</code> DID is done by setting the <a class="term-reference" href="#term:nym">NYM</a> verkey to null. Once done, the DIDDoc is not found (per
 the <a href="#diddoc-assembly-steps" >DIDDoc Assembly Rules</a>) and the <a class="term-reference" href="#term:nym">NYM</a> cannot be updated again.</p>
 <div id="dead-link" class="notice warning"><a class="notice-link" href="#dead-link">WARNING</a><p>section <code>#diddoc-assembly-rules</code> does not exist. Pointing to <code>#DIDDoc-Assembly-Steps</code></p>
 </div>

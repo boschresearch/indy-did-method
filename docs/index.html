@@ -496,7 +496,7 @@ self-certifying the identifier must be derived from the initial verkey associate
 <p>Based on the configured authorization rules of the specific Indy ledger, the transaction may have to be signed by others, such as a Trustee or Endorser. If transaction is not authorized, the transaction MUST be rejected and an error returned to the client.</p>
 </li>
 <li>
-<p>The <a class="term-reference" href="#term:nym">NYM</a> transaction requires that the transaction to be written is signed by the DID controller using the existing <code>verkey</code> and, if a new <code>verkey</code> is being provided, the new <code>verkey</code>. The ledger MUST verify the signature(s). If the signature(s) cannot be validated, the transaction MUST be rejected and an error returned to the client.</p>
+<p>The <a class="term-reference" href="#term:nym">NYM</a> transaction requires that the transaction to be written is signed by the DID controller using the existing <code>verkey</code>. The ledger MUST verify the DID controller’s signature. If the DID controller’s signature cannot be validated, the transaction MUST be rejected and an error returned to the client.</p>
 </li>
 <li>
 <p>The Indy ledger MUST check that the data in the <a class="term-reference" href="#term:nym">NYM</a> produces valid JSON and MUST do a limited DIDDoc validation check prior to writing the <a class="term-reference" href="#term:nym">NYM</a> object to the ledger. Details of the assembly and verification are <a href="#diddoc-assembly-and-verification" >here</a>. If the DIDDoc validation fails, the transaction MUST be rejected and an error returned to the client.</p>

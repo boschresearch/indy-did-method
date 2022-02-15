@@ -206,11 +206,13 @@ self-certifying the identifier must be derived from the initial verkey associate
 <h3 id="did-urls-for-indy-object-identifiers"><a class="toc-anchor" href="#did-urls-for-indy-object-identifiers" >§</a> DID URLs for Indy Object Identifiers</h3>
 <p>The structure of identifiers for all non-DID Indy ledger objects is the following DID URL structure, based on the DID of the object’s DID controller:</p>
 <ul>
-<li><code>&lt;did&gt;/&lt;object-type&gt;/&lt;object-type-identifier&gt;</code></li>
+<li><code>&lt;did&gt;/&lt;object-family&gt;/&lt;object-family-version&gt;/&lt;object-type&gt;/&lt;object-type-identifier&gt;</code></li>
 </ul>
 <p>The components of the DID URL are:</p>
 <ul>
 <li><code>&lt;did&gt;</code> the <code>did:indy</code> DID of the object-owning controller</li>
+<li><code>&lt;object-family&gt;</code> family of the object</li>
+<li><code>&lt;object-family-version&gt;</code> version of the object family</li>
 <li><code>&lt;object-type&gt;</code> one of <a class="term-reference" href="#term:schema">SCHEMA</a>, <a class="term-reference" href="#term:claim_def">CLAIM_DEF</a>, <a class="term-reference" href="#term:rev_reg_def">REV_REG_DEF</a>, <a class="term-reference" href="#term:rev_reg_entry">REV_REG_ENTRY</a>, <a class="term-reference" href="#term:attrib">ATTRIB</a></li>
 <li><code>&lt;object-type-identifier&gt;</code> an object type unique identifier defined by Indy by object type.</li>
 </ul>
@@ -219,12 +221,15 @@ self-certifying the identifier must be derived from the initial verkey associate
 <ul>
 <li>an example DID URL identifier,</li>
 <li>a link to an example object residing on the Sovrin MainNet Indy ledger (courtesy of <a path-0="indyscan.io"href="https://indyscan.io" >indyscan.io</a>),</li>
+<li>the appropriate object family and version,</li>
 <li>the format of the response when resolving the DID URL,</li>
 <li>the pre-<code>did:indy</code> identifier for each object, and</li>
 <li>notes about the elements of the pre-<code>did:indy</code> identifier.</li>
 </ul>
 <h4 id="schema"><a class="toc-anchor" href="#schema" >§</a> Schema</h4>
-<p>DID URL: <a path-0="indyscan.io"path-1="tx"path-2="SOVRIN_MAINNET"path-3="domain"path-4="56495"href="https://indyscan.io/tx/SOVRIN_MAINNET/domain/56495" ><code>did:indy:sovrin:F72i3Y3Q4i466efjYJYCHM/SCHEMA/npdb/4.3.4</code></a></p>
+<p>DID URL: <a path-0="indyscan.io"path-1="tx"path-2="SOVRIN_MAINNET"path-3="domain"path-4="56495"href="https://indyscan.io/tx/SOVRIN_MAINNET/domain/56495" ><code>did:indy:sovrin:F72i3Y3Q4i466efjYJYCHM/anoncreds/v1/SCHEMA/npdb/4.3.4</code></a></p>
+<p>Object Family: <code>anoncreds</code></p>
+<p>Family Version: <code>v1</code></p>
 <p>Response: Same as the Indy Node <a path-0="hyperledger-indy.readthedocs.io"path-1="projects"path-2="node"path-3="en"path-4="latest"path-5="requests.html#get-schema"href="https://hyperledger-indy.readthedocs.io/projects/node/en/latest/requests.html#get-schema" >GET_SCHEMA Txn</a></p>
 <p>Existing identifier: <code>F72i3Y3Q4i466efjYJYCHM:2:npdb:4.3.4</code></p>
 <ul>
@@ -233,7 +238,9 @@ self-certifying the identifier must be derived from the initial verkey associate
 <li><code>4.3.4</code> is the client-defined version of the <a class="term-reference" href="#term:schema">SCHEMA</a></li>
 </ul>
 <h4 id="claim-def"><a class="toc-anchor" href="#claim-def" >§</a> Claim Def</h4>
-<p>DID URL: <a path-0="indyscan.io"path-1="tx"path-2="SOVRIN_MAINNET"path-3="domain"path-4="56496"href="https://indyscan.io/tx/SOVRIN_MAINNET/domain/56496" ><code>did:indy:sovrin:5nDyJVP1NrcPAttP3xwMB9/CLAIM_DEF/npdb</code></a></p>
+<p>DID URL: <a path-0="indyscan.io"path-1="tx"path-2="SOVRIN_MAINNET"path-3="domain"path-4="56496"href="https://indyscan.io/tx/SOVRIN_MAINNET/domain/56496" ><code>did:indy:sovrin:5nDyJVP1NrcPAttP3xwMB9/anoncreds/v1/CLAIM_DEF/npdb</code></a></p>
+<p>Object Family: <code>anoncreds</code></p>
+<p>Family Version: <code>v1</code></p>
 <p>Response: Same as the Indy Node <a path-0="hyperledger-indy.readthedocs.io"path-1="projects"path-2="node"path-3="en"path-4="latest"path-5="requests.html#get-claim-def"href="https://hyperledger-indy.readthedocs.io/projects/node/en/latest/requests.html#get-claim-def" >GET_CLAIM_DEF Txn</a></p>
 <p>Existing identifier: <code>did:indy:sovrin:5nDyJVP1NrcPAttP3xwMB9:3:CL:56495:npdb</code></p>
 <ul>
@@ -244,7 +251,9 @@ self-certifying the identifier must be derived from the initial verkey associate
 </ul>
 <p>Note that the DID URL format adds a constraint on the client-defined claim def name from the <code>did:sov</code> DID Method. Specifically, the same named claim def can no longer be associated with different <a class="term-reference" href="#term:schema">SCHEMA</a> objects.</p>
 <h4 id="revocation-registry-definition"><a class="toc-anchor" href="#revocation-registry-definition" >§</a> Revocation Registry Definition</h4>
-<p>DID URL: <a path-0="indyscan.io"path-1="tx"path-2="SOVRIN_MAINNET"path-3="domain"path-4="56497"href="https://indyscan.io/tx/SOVRIN_MAINNET/domain/56497" ><code>did:indy:sovrin:5nDyJVP1NrcPAttP3xwMB9/REV_REG_DEF/npdb/TAG1</code></a></p>
+<p>DID URL: <a path-0="indyscan.io"path-1="tx"path-2="SOVRIN_MAINNET"path-3="domain"path-4="56497"href="https://indyscan.io/tx/SOVRIN_MAINNET/domain/56497" ><code>did:indy:sovrin:5nDyJVP1NrcPAttP3xwMB9/anoncreds/v1/REV_REG_DEF/npdb/TAG1</code></a></p>
+<p>Object Family: <code>anoncreds</code></p>
+<p>Family Version: <code>v1</code></p>
 <p>Response: Same as the Indy Node <a path-0="hyperledger-indy.readthedocs.io"path-1="projects"path-2="node"path-3="en"path-4="latest"path-5="requests.html#get-revoc-reg-def"href="https://hyperledger-indy.readthedocs.io/projects/node/en/latest/requests.html#get-revoc-reg-def" >GET_REVOC_REG_DEF Txn</a></p>
 <p>Existing Identifier: <code>5nDyJVP1NrcPAttP3xwMB9:4:5nDyJVP1NrcPAttP3xwMB9:3:CL:56495:npdb:CL_ACCUM:TAG1</code></p>
 <ul>
@@ -253,7 +262,9 @@ self-certifying the identifier must be derived from the initial verkey associate
 <li><code>TAG1</code> is the client-defined rev reg name</li>
 </ul>
 <h4 id="revocation-registry-entry"><a class="toc-anchor" href="#revocation-registry-entry" >§</a> Revocation Registry Entry</h4>
-<p>DID URL: <a path-0="indyscan.io"path-1="tx"path-2="SOVRIN_MAINNET"path-3="domain"path-4="58567"href="https://indyscan.io/tx/SOVRIN_MAINNET/domain/58567" >did:indy:sovrin:5nDyJVP1NrcPAttP3xwMB9/REV_REG_ENTRY/npdb/TAG1</a></p>
+<p>DID URL: <a path-0="indyscan.io"path-1="tx"path-2="SOVRIN_MAINNET"path-3="domain"path-4="58567"href="https://indyscan.io/tx/SOVRIN_MAINNET/domain/58567" ><code>did:indy:sovrin:5nDyJVP1NrcPAttP3xwMB9/anoncreds/v1/REV_REG_ENTRY/npdb/TAG1</code></a></p>
+<p>Object Family: <code>anoncreds</code></p>
+<p>Family Version: <code>v1</code></p>
 <p>The DID URL resolution response depends on the query parameters used, as follows:</p>
 <ul>
 <li><code>?versionId=&lt;timestamp&gt;</code>

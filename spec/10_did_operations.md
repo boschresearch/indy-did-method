@@ -61,15 +61,16 @@ The remainder of this section goes through examples of base DIDDoc template (ste
 ##### Base DIDDoc Template
 
 The base DIDDoc template is static text that forms a JSON structure. To transform a [[ref: NYM]] to its minimal DIDDoc, the Indy network instance's `namespace`, and the [[ref: NYM]] values `dest` and `verkey` are inserted into the template as indicated below.
+The `z`in front of the `verkey` indicates that we are using the base58btc variant for encoding (see [multibase data format draft](https://datatracker.ietf.org/doc/html/draft-multiformats-multibase#appendix-D.1))
 
 ```json
 {
   "id": "did:indy:<namespace>:<dest>",
   "verificationMethod": [{
       "id": "did:indy:<namespace>:<dest>#verkey",
-      "type": "Ed25519VerificationKey2018",
-      "publicKeyBase58": "<verkey>",
-      "controller": "did:indy:<namespace>:<dest>"
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:indy:<namespace>:<dest>",
+      "publicKeyMultibase": "z<verkey>"
     }
   ],
   "authentication": [
@@ -86,9 +87,9 @@ Assuming values `sovrin` for the `namespace`, `123456` for `dest` and `789abc` f
   "id": "did:indy:sovrin:123456",
   "verificationMethod": [{
       "id": "did:indy:sovrin:123456#verkey",
-      "type": "Ed25519VerificationKey2018",
-      "publicKeyBase58": "789abc",
-      "controller": "did:indy:sovrin:123456"
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:indy:sovrin:123456",
+      "publicKeyMultibase": "z789abc"
     }
   ],
   "authentication": [
@@ -107,7 +108,7 @@ An example of a [[ref: NYM]]'s extended DIDDoc handling is provided below. In th
 "diddocContent" : {
   "@context" : [
       "https://www.w3.org/ns/did/v1",
-      "https://identity.foundation/didcomm-messaging/service-endpoint/v1"
+      "https://w3id.org/security/suites/ed25519-2020/v1"
   ],
   "service": [
     {
@@ -130,13 +131,13 @@ Applying the DIDDoc assembly rules to the example above produces the following a
 {
   "@context": [
     "https://www.w3.org/ns/did/v1",
-    "https://identity.foundation/didcomm-messaging/service-endpoint/v1"
+    "https://w3id.org/security/suites/ed25519-2020/v1"
   ],
   "id": "did:indy:sovrin:123456",
   "verificationMethod": [{
       "id": "did:indy:sovrin:123456#verkey",
-      "type": "Ed25519VerificationKey2018",
-      "publicKeyBase58": "789abc",
+      "type": "Ed25519VerificationKey2020",
+      "publicKeyMultibase": "z789abc",
       "controller": "did:indy:sovrin:123456"
     }
   ],
@@ -173,7 +174,6 @@ If clients want to continue to retrieve and use the `endpoint` [[ref: ATTRIB]] t
 
 ``` json
 "diddocContent" : {
-  "@context" : [ "https://identity.foundation/didcomm-messaging/service-endpoint/v1" ],
   "service": [
     {
       "id": "did:indy:sovrin:123456#did-communication",

@@ -101,23 +101,30 @@ Assuming values `sovrin` for the `namespace`, `123456` for `dest` and `789abc` f
 
 ##### Example Extended DIDDoc Item
 
-An example of a [[ref: NYM]]'s extended DIDDoc handling is provided below. In the example below, the `diddocContent` item adds a DIDcomm service endpoint to the resolved DIDDoc. Note that in the example, an `@context` item is included in the `diddocContent`, which causes the result DIDDoc to be a JSON-LD document, rather than plain JSON.
+An example of a [[ref: NYM]]'s extended DIDDoc handling is provided below. In the example below, the `diddocContent` item adds a DIDcomm service endpoint to the resolved DIDDoc. Note that in the example, an `@context` item is included in the `diddocContent`, which causes the result DIDDoc to be a JSON-LD document, rather than plain JSON. This example  defines a DIDcommv1 service endpoint according to [Aries RFC 0067](https://github.com/hyperledger/aries-rfcs/blob/main/features/0067-didcomm-diddoc-conventions/README.md) with an accept field signaling the supported DIDcomm variant.
+
+::: todo Fix DIDcommv1 / aries rfc 0067 compliant context
 
 ::: example Extended DIDDoc Item example
 ```json
 "diddocContent" : {
   "@context" : [
       "https://www.w3.org/ns/did/v1",
-      "https://w3id.org/security/suites/ed25519-2020/v1"
+      "https://w3id.org/security/suites/ed25519-2020/v1",
+      "https://didcomm.org/messaging/contexts/v1"
   ],
   "service": [
     {
       "id": "did:indy:sovrin:123456#did-communication",
       "type": "did-communication",
       "priority": 0,
-      "serviceEndpoint": "https://example.com",
       "recipientKeys": [ "#verkey" ],
-      "routingKeys": [ ]
+      "routingKeys": [ ],
+      "accept": [
+          "didcomm/aip2;env=rfc587",
+          "didcomm/aip2;env=rfc19"
+      ],
+      "serviceEndpoint": "https://example.com"
     }
   ]
 }
@@ -131,14 +138,15 @@ Applying the DIDDoc assembly rules to the example above produces the following a
 {
   "@context": [
     "https://www.w3.org/ns/did/v1",
-    "https://w3id.org/security/suites/ed25519-2020/v1"
+    "https://w3id.org/security/suites/ed25519-2020/v1",
+    "https://didcomm.org/messaging/contexts/v1"
   ],
   "id": "did:indy:sovrin:123456",
   "verificationMethod": [{
       "id": "did:indy:sovrin:123456#verkey",
       "type": "Ed25519VerificationKey2020",
-      "publicKeyMultibase": "z789abc",
-      "controller": "did:indy:sovrin:123456"
+      "controller": "did:indy:sovrin:123456",
+      "publicKeyMultibase": "z789abc"
     }
   ],
   "authentication": [
@@ -149,9 +157,13 @@ Applying the DIDDoc assembly rules to the example above produces the following a
       "id": "did:indy:sovrin:123456#did-communication",
       "type": "did-communication",
       "priority": 0,
-      "serviceEndpoint": "https://example.com",
       "recipientKeys": [ "#verkey" ],
-      "routingKeys": [ ]
+      "routingKeys": [ ],
+      "accept": [
+          "didcomm/aip2;env=rfc587",
+          "didcomm/aip2;env=rfc19"
+      ],
+      "serviceEndpoint": "https://example.com"
     }
   ]
 }
